@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure proper scaling on mobile -->
+    <title>Manage Category Items</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: circle;
+            padding: 0;
+        }
+
+        li {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="/"><h3>Back</h3></a>
+    <div style="height: 20px;"></div>
+    <div>
+        <h1>{{ category.name }}</h1>
+    </div>
+    <div style="height: 20px;"></div>
+    <div>
+        <form method="post" action="{% url 'create_item' category.id %}">
+            {% csrf_token %}
+            {{ form.title }}
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    <div style="height: 20px;"></div>
+    <div style="height: 20px;"></div>
+    <div>
+        <h2>Items:</h2>
+        <ul class="list-unstyled">
+            {% for item in category.items.all %}
+                <li class="item-container">
+                    <div>
+                        {{ item.title }} <a href="{% url 'delete_items' category.id item.id %}">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</body>
+</html>

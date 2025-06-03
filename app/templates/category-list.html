@@ -1,0 +1,23 @@
+<ul>
+    {% for category in categories %}
+        <li>
+            <div class="category-box">
+                <div class="category-title" onclick="toggleCategory(this)">
+                    <span class="toggle-icon">+</span>
+                    {{ category.name }}
+                </div>
+                <div class="category-content">
+                    <div class="button-container">
+                        {% for item in category.items.all %}
+                            <button class="selectable-button"
+                                    onclick="toggleSelect(this, '{{ category.type|escapejs }}')">
+                                {{ item.title }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'manage_items' category.id %}">Manage Items</a>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
