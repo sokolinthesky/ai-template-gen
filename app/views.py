@@ -28,6 +28,10 @@ def create_category(request):
             form.save()
     return redirect("template_gen")
 
+def delete_category(request, category_id):
+    get_object_or_404(Category, pk=category_id).delete()
+    return redirect("template_gen")
+
 
 def manage_items(request, category_id):
     category = get_object_or_404(Category, pk=category_id)

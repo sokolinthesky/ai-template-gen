@@ -2,9 +2,13 @@
     {% for category in categories %}
         <li>
             <div class="category-box">
-                <div class="category-title" onclick="toggleCategory(this)">
-                    <span class="toggle-icon">+</span>
-                    {{ category.name }}
+                <div class="category-title" onclick="toggleCategory(this)"
+                     style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center;">
+                        <span class="toggle-icon">+</span>
+                        {{ category.name }}
+                    </div>
+                    <a href="{% url 'delete_category' category.id %}" class="delete-link">Delete</a>
                 </div>
                 <div class="category-content">
                     <div class="button-container">
