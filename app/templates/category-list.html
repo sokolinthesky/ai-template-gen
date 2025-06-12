@@ -14,7 +14,7 @@
                     <div class="button-container">
                         {% for item in category.items.all %}
                             <button class="selectable-button"
-                                    onclick="toggleSelect(this, '{{ category.type|escapejs }}')">
+                                    onclick="toggleSelect(this, '{{ category.type|escapejs }}', '{{ item.value }}')">
                                 {{ item.title }}
                             </button>
                         {% endfor %}

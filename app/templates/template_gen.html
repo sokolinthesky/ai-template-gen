@@ -161,31 +161,31 @@
 
 
 <script>
-    let positiveSelection = [];
-    let negativeSelection = []
+    let positiveSelection = new Map();
+    let negativeSelection = new Map();
 
-    function toggleSelect(button, categoryType) {
+    function toggleSelect(button, categoryType, itemValue) {
         if ('POSITIVE' === categoryType) {
-            selectButton(positiveSelection, button, 'positive-template');
+            selectButton(positiveSelection, button, itemValue, 'positive-template');
         } else {
-            selectButton(negativeSelection, button, 'negative-template');
+            selectButton(negativeSelection, button, itemValue, 'negative-template');
         }
     }
 
-    function selectButton(buttonsList, button, template) {
+    function selectButton(buttonsMap, button, itemValue, template) {
         // Check if the item is already selected
-        if (buttonsList.includes(button)) {
+        if (buttonsMap.has(button)) {
             // Unselect the button
-            buttonsList.splice(buttonsList.indexOf(button), 1);
+            buttonsMap.delete(button);
             button.classList.remove('selected');
         } else {
             // Select the button
-            buttonsList.push(button);
+            buttonsMap.set(button, itemValue ? itemValue : button.innerText);
             button.classList.add('selected');
         }
 
         document.getElementById(template).innerText =
-            buttonsList.map(button => button.innerText).join(', ') || 'No items selected';
+            Array.from(buttonsMap.values()).join(', ') || 'No items selected';
     }
 
     function toggleCategory(categoryTitle) {
@@ -215,9 +215,9 @@
     }
 
     function clearTextAndUnselectButtons(buttons, template) {
-        buttons.forEach(button => button.classList.remove('selected'))
-        buttons.length = 0;
-        document.getElementById(template).innerText = 'No items selected';
+        buttons.keys().forEach(button => button.classList.remove('selected'))
+        buttons.clear()
+        document.getElementById(template).innerText = '';
     }
 </script>
 

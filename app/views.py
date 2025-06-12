@@ -55,3 +55,18 @@ def create_item(request, category_id):
             category.save()
 
     return redirect("manage_items", category_id)
+
+def update_item(request, category_id, item_id):
+    category = get_object_or_404(Category, pk=category_id)
+    item = get_object_or_404(Item, pk=item_id)
+
+    if request.method == 'POST':
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+        return redirect("manage_items", category_id)
+    else:
+        form = ItemForm(instance=item)
+
+    return render(request, 'update_item.html', {"form": form, "category": category, "item": item})
+

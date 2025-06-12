@@ -14,7 +14,16 @@ class CategoryForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['title']
+        fields = ['title', 'value']
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'New Item'})
+            'title': forms.TextInput(attrs={'placeholder': 'New Item'}),
+            'value': forms.TextInput(attrs={'placeholder': 'Value'})
         }
+
+    def __init__(self, *args, **kwargs):
+        super(ItemForm, self).__init__(*args, **kwargs)
+        # Customize the description field to be a larger textarea
+        self.fields['value'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'style': 'width: 100%; height: 100px;'
+        })
