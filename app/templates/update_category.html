@@ -26,14 +26,14 @@
 </head>
 <body>
 <div class="container">
-    <a href="{% url 'manage_items' category.id %}"><h3>Back</h3></a>
+    <a href="/"><h3>Back</h3></a>
     <div style="height: 20px;"></div>
     <div>
-        <h1>Edit Item:</h1>
+        <h1>Update Category:</h1>
     </div>
     <div style="height: 20px;"></div>
     <div>
-        <form method="post" action="{% url 'update_item' category.id item.id %}">
+        <form method="post" action="{% url 'update_category' category.id %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Update</button>

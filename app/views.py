@@ -28,6 +28,19 @@ def create_category(request):
             form.save()
     return redirect("template_gen")
 
+def update_category(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+        return redirect("template_gen")
+    else:
+        form = CategoryForm(instance=category)
+
+    return render(request, 'update_category.html', {"form": form, "category": category})
+
 def delete_category(request, category_id):
     get_object_or_404(Category, pk=category_id).delete()
     return redirect("template_gen")

@@ -3,12 +3,15 @@
         <li>
             <div class="category-box">
                 <div class="category-title" onclick="toggleCategory(this)"
-                     style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; align-items: center;">
+                     style="display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;">
+                    <div style="display: flex; align-items: center; flex-grow: 1; min-width: 0;">
                         <span class="toggle-icon">+</span>
-                        {{ category.name }}
+                        <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ category.name }}</span>
                     </div>
-                    <a href="{% url 'delete_category' category.id %}" class="delete-link">Delete</a>
+                    <div style="margin-left: 10px;">
+                        <a href="{% url 'update_category' category.id %}">Edit</a> |
+                        <a href="{% url 'delete_category' category.id %}" class="delete-link">Delete</a>
+                    </div>
                 </div>
                 <div class="category-content">
                     <div class="button-container">
