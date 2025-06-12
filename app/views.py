@@ -10,8 +10,14 @@ def index(request):
 
 def template_gen(request):
     categories = Category.objects.all()
-    positive_categories = filter(lambda c: c.type == CategoryType.POSITIVE.name, categories)
-    negative_categories = filter(lambda c: c.type == CategoryType.NEGATIVE.name, categories)
+    positive_categories = sorted(
+        filter(lambda c: c.type == CategoryType.POSITIVE.name, categories),
+        key=lambda c: c.name.lower()
+    )
+    negative_categories = sorted(
+        filter(lambda c: c.type == CategoryType.NEGATIVE.name, categories),
+        key=lambda c: c.name.lower()
+    )
 
     context = {
         "form": CategoryForm(),

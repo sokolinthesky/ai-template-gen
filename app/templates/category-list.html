@@ -15,7 +15,8 @@
                 </div>
                 <div class="category-content">
                     <div class="button-container">
-                        {% for item in category.items.all %}
+                        {% load custom_filters %}
+                        {% for item in category.items.all|sort_items_by_title %}
                             <button class="selectable-button"
                                     onclick="toggleSelect(this, '{{ category.type|escapejs }}', '{{ item.value }}')">
                                 {{ item.title }}

@@ -44,7 +44,8 @@
     <div>
         <h2>Items:</h2>
         <ul class="list-unstyled">
-            {% for item in category.items.all %}
+            {% load custom_filters %}
+            {% for item in category.items.all|sort_items_by_title %}
                 <li class="item-container">
                     <div>
                         {{ item.title }} <a href="{% url 'update_item' category.id item.id %}">Edit</a> | <a href="{% url 'delete_items' category.id item.id %}">Delete</a>

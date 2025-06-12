@@ -180,7 +180,7 @@
             button.classList.remove('selected');
         } else {
             // Select the button
-            buttonsMap.set(button, itemValue ? itemValue : button.innerText);
+            buttonsMap.set(button, itemValue && itemValue !== 'None' ? itemValue : button.innerText);
             button.classList.add('selected');
         }
 
