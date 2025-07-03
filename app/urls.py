@@ -1,4 +1,5 @@
 from django.urls import path
+
 from app import views
 
 urlpatterns = [
@@ -11,4 +12,7 @@ urlpatterns = [
     path("<int:category_id>/manage-items/<int:item_id>/delete", views.delete_item, name="delete_items"),
     path("<int:category_id>/manage-items/create", views.create_item, name="create_item"),
     path("<int:category_id>/<int:item_id>/update", views.update_item, name="update_item"),
+
+    path("template-gen/export", views.export_data, name="export_data"),
+    path("template-gen/import", views.import_data, name="import_data")
 ]

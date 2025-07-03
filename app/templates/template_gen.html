@@ -145,6 +145,19 @@
             {% include "category-list.html" with categories=negative_categories %}
         </div>
     </div>
+
+    <div style="height: 20px;"></div>
+
+    <div class="import-export">
+        <a href="{% url 'export_data' %}">Export</a>
+        <div style="height: 20px;"></div>
+        <form action="{% url 'import_data' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="file" accept=".json" required>
+            <div style="height: 10px;"></div>
+            <button class="btn btn-primary" type="submit">Import</button>
+        </form>
+    </div>
 </div>
 
 <div class="content">
