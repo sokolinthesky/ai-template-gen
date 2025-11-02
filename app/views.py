@@ -1,16 +1,19 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
-from django.core import serializers
 import json
 
-from .models import Category, Item, CategoryType
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+
 from .forms import CategoryForm, ItemForm
+from .models import Category, Item, CategoryType
 
 
+@login_required
 def index(request):
     return redirect("template_gen")
 
 
+@login_required
 def template_gen(request):
     categories = Category.objects.all()
     positive_categories = sorted(
@@ -30,6 +33,7 @@ def template_gen(request):
     return render(request, "template_gen.html", context)
 
 
+@login_required
 def create_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -38,6 +42,7 @@ def create_category(request):
     return redirect("template_gen")
 
 
+@login_required
 def update_category(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
@@ -52,22 +57,26 @@ def update_category(request, category_id):
     return render(request, 'update_category.html', {"form": form, "category": category})
 
 
+@login_required
 def delete_category(request, category_id):
     get_object_or_404(Category, pk=category_id).delete()
     return redirect("template_gen")
 
 
+@login_required
 def manage_items(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     return render(request, "manage_items.html", {"form": ItemForm(), "category": category})
 
 
+@login_required
 def delete_item(request, category_id, item_id):
     get_object_or_404(Category, pk=category_id)
     get_object_or_404(Item, pk=item_id).delete()
     return redirect("manage_items", category_id)
 
 
+@login_required
 def create_item(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
@@ -81,6 +90,7 @@ def create_item(request, category_id):
     return redirect("manage_items", category_id)
 
 
+@login_required
 def update_item(request, category_id, item_id):
     category = get_object_or_404(Category, pk=category_id)
     item = get_object_or_404(Item, pk=item_id)
@@ -96,6 +106,7 @@ def update_item(request, category_id, item_id):
     return render(request, 'update_item.html', {"form": form, "category": category, "item": item})
 
 
+@login_required
 def export_data(request):
     categories = Category.objects.all()
 
@@ -120,6 +131,7 @@ def export_data(request):
     return response
 
 
+@login_required
 def import_data(request):
     if request.method == 'POST' and request.FILES.get('file'):
         uploaded_file = request.FILES['file']

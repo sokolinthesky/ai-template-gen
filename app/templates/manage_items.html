@@ -26,6 +26,10 @@
 </head>
 <body>
 <div class="container">
+    <div style="text-align: right; margin-bottom: 10px;">
+        <span style="margin-right: 10px;">{{ user.username }}</span>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
     <a href="/"><h3>Back</h3></a>
     <div style="height: 20px;"></div>
     <div>
